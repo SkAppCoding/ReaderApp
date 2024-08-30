@@ -9,7 +9,7 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.readerapp" />
-                  <option name="mobileSdkAppId" value="1:705929596304:android:8edcc8f3b3c973f76bf715" />
+                  <option name="mobileSdkAppId" value="1:705929596304:android:de23a640ff1c45946bf715" />
                   <option name="projectId" value="readerapp-3cd90" />
                   <option name="projectNumber" value="705929596304" />
                 </ConnectionSetting>

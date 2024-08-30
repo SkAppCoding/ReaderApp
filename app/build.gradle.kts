@@ -56,6 +56,7 @@ dependencies {
 
     // Firebase
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
 
     //viewmodel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -71,7 +72,6 @@ dependencies {
 
     //ROOM DB
     implementation(libs.androidx.room.runtime)
-    implementation(libs.firebase.firestore)
     implementation(libs.androidx.navigation.compose)
     annotationProcessor(libs.androidx.room.room.compiler)
 
