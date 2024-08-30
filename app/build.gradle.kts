@@ -61,41 +61,45 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     //Coroutines
-    implementation (libs.kotlinx.coroutines.core)
-    implementation (libs.kotlinx.coroutines.android)
-    implementation (libs.kotlinx.coroutines.play.services)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.play.services)
 
     // Coroutine Lifecycle Scopes
-    implementation (libs.androidx.lifecycle.viewmodel.ktx)
-    implementation (libs.androidx.lifecycle.runtime.ktx.v240)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx.v240)
 
     //ROOM DB
     implementation(libs.androidx.room.runtime)
     implementation(libs.firebase.firestore)
+    implementation(libs.androidx.navigation.compose)
     annotationProcessor(libs.androidx.room.room.compiler)
 
     // To use Kotlin annotation processing tool (kapt)
-    annotationProcessor(libs.androidx.room.room.compiler)
     implementation(libs.androidx.room.ktx)
 
-    //Hilt & Dagger
-    implementation(libs.hilt.android.v244)
-    annotationProcessor(libs.hilt.android.compiler.v244)
+
+    //Dagger - Hilt
+    implementation("com.google.dagger:hilt-android:2.52")
+    annotationProcessor("com.google.dagger:hilt-android-compiler:2.52")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    annotationProcessor("androidx.hilt:hilt-compiler:1.2.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     //material icons - use with caution!
-    implementation (libs.androidx.material.icons.extended.v168)
+    //implementation ("androidx.compose.material:material-icons-extended:1.6.8")
 
     //Coil
     implementation(libs.coil)
 
     // Retrofit
-    implementation (libs.retrofit)
+    implementation(libs.retrofit)
 
     // OkHttp
     implementation(libs.okhttp)
 
     // JSON Converter
-    implementation (libs.converter.gson)
+    implementation(libs.converter.gson)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
