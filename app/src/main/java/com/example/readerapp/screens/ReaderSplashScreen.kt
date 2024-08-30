@@ -22,17 +22,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.readerapp.components.ReaderLogo
 import com.example.readerapp.navigation.ReaderScreens
 import kotlinx.coroutines.delay
 
-@Preview
+
 @Composable
-fun SplashScreen(navController: NavHostController = NavHostController(context = LocalContext.current)) {
+fun SplashScreen(navController: NavHostController) {
 
     val scale = remember {
         Animatable(0f)
@@ -46,9 +45,9 @@ fun SplashScreen(navController: NavHostController = NavHostController(context = 
                     OvershootInterpolator(4f).getInterpolation(it)
                 })
         )
-        delay(2000L)
+        delay(1000L)
 
-        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+        navController.navigate(ReaderScreens.LoginScreen.name)
     }
 
     Surface(
@@ -66,18 +65,14 @@ fun SplashScreen(navController: NavHostController = NavHostController(context = 
                     .scale(scale.value),
                 shape = CircleShape,
                 color = MaterialTheme.colorScheme.primary,
-                border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.onBackground)
+                border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onBackground)
             ) {
                 Column(
                     modifier = Modifier.padding(1.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text(
-                        text = "Reader App",
-                        style = MaterialTheme.typography.headlineLarge,
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
+                    ReaderLogo(color = MaterialTheme.colorScheme.onPrimary)
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = "\"Read. Change. Yourself\"",

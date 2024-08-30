@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ReaderApp</string>
+
+    <string name="AppName">Reader App</string>
 </resources>
