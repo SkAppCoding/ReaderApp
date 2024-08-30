@@ -54,6 +54,9 @@ android {
 
 dependencies {
 
+    // Firebase
+    implementation(libs.firebase.auth)
+
     //viewmodel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
@@ -68,6 +71,7 @@ dependencies {
 
     //ROOM DB
     implementation(libs.androidx.room.runtime)
+    implementation(libs.firebase.firestore)
     annotationProcessor(libs.androidx.room.room.compiler)
 
     // To use Kotlin annotation processing tool (kapt)
@@ -101,7 +105,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
