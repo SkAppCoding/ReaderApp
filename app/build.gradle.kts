@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.gms.google.services)
+    id("kotlin-parcelize")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -51,6 +54,45 @@ android {
 
 dependencies {
 
+    //viewmodel
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    //Coroutines
+    implementation (libs.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
+    implementation (libs.kotlinx.coroutines.play.services)
+
+    // Coroutine Lifecycle Scopes
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.androidx.lifecycle.runtime.ktx.v240)
+
+    //ROOM DB
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.room.compiler)
+
+    // To use Kotlin annotation processing tool (kapt)
+    annotationProcessor(libs.androidx.room.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    //Hilt & Dagger
+    implementation(libs.hilt.android.v244)
+    annotationProcessor(libs.hilt.android.compiler.v244)
+
+    //material icons - use with caution!
+    implementation (libs.androidx.material.icons.extended.v168)
+
+    //Coil
+    implementation(libs.coil)
+
+    // Retrofit
+    implementation (libs.retrofit)
+
+    // OkHttp
+    implementation(libs.okhttp)
+
+    // JSON Converter
+    implementation (libs.converter.gson)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -59,6 +101,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
