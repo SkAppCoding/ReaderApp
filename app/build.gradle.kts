@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
-    id("kotlin-parcelize")
     id("com.google.dagger.hilt.android")
 }
 
@@ -87,7 +86,7 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     //material icons - use with caution!
-    //implementation ("androidx.compose.material:material-icons-extended:1.6.8")
+    implementation ("androidx.compose.material:material-icons-extended:1.6.8")
 
     //Coil
     implementation(libs.coil)
