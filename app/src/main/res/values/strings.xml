@@ -2,4 +2,12 @@
     <string name="app_name">ReaderApp</string>
 
     <string name="AppName">Reader App</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="CreateAccount">Create Account</string>
+    <string name="Login">Login</string>
+    <string name="SignUp">Sign up</string>
+    <string name="NewUser">New User?</string>
+    <string name="AlreadyUser">Already signed up?</string>
+    <string name="CreateAccountHelp">Please enter a valid email and password that is at least 6 characters</string>
 </resources>

@@ -56,8 +56,6 @@ fun SplashScreen(navController: NavHostController) {
     ) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
         {
-
-
             Surface(
                 modifier = Modifier
                     .padding(15.dp)
