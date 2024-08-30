@@ -1,5 +1,6 @@
 package com.example.readerapp.screens.login
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -58,21 +60,26 @@ fun LoginScreen(navController: NavHostController,
             ReaderLogo(color = MaterialTheme.colorScheme.onBackground)
             Spacer(modifier = Modifier.height(15.dp))
 
+            val context = LocalContext.current
+
             //show Login or Register Form
             if (showLoginForm.value)
                 UserForm(loading = false, isCreateAccount = false) { email, password ->
-                    viewModel.signInUserWithEmailAndPassword(email, password){
+                    viewModel.signInUserWithEmailAndPassword(email, password, failed = {
+                        Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                    }){
                         navController.navigate(ReaderScreens.ReaderHomeScreen.name)
                     }
                 }
             else {
                 UserForm(loading = false, isCreateAccount = true) { email, password ->
-                    viewModel.createUserWithEmailAndPassword(email,password){
+                    viewModel.createUserWithEmailAndPassword(email,password, context, failed = {
+                        Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                    }){
                         navController.navigate(ReaderScreens.ReaderHomeScreen.name)
                     }
                 }
             }
-
 
             Row(
                 modifier = Modifier.padding(15.dp),

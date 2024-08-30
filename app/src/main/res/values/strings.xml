@@ -10,4 +10,5 @@
     <string name="NewUser">New User?</string>
     <string name="AlreadyUser">Already signed up?</string>
     <string name="CreateAccountHelp">Please enter a valid email and password that is at least 6 characters</string>
+    <string name="AccountAlreadyExistsLogin">Account already exists. You will be logged in!</string>
 </resources>
