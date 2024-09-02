@@ -10,9 +10,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.readerapp" />
-                  <option name="mobileSdkAppId" value="1:705929596304:android:de23a640ff1c45946bf715" />
-                  <option name="projectId" value="readerapp-3cd90" />
-                  <option name="projectNumber" value="705929596304" />
+                  <option name="mobileSdkAppId" value="1:787868254092:android:b18b8364f3c1701c0e20a9" />
+                  <option name="projectId" value="jetareader-604c0" />
+                  <option name="projectNumber" value="787868254092" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

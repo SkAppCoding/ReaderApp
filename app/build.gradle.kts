@@ -90,7 +90,7 @@ dependencies {
     implementation ("androidx.compose.material:material-icons-extended:1.6.8")
 
     //Coil
-    implementation(libs.coil)
+    implementation("io.coil-kt:coil-compose:2.7.0")
 
     // Retrofit
     implementation(libs.retrofit)
