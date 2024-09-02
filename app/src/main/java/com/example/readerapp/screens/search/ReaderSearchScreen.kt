@@ -1,5 +1,6 @@
 package com.example.readerapp.screens.search
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,7 +39,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
 import com.example.readerapp.R
 import com.example.readerapp.components.InputField
 import com.example.readerapp.components.ReaderAppBar
@@ -168,14 +171,16 @@ fun SearchResultItem(
 
             val imageUrl: String = book.volumeInfo.imageLinks.smallThumbnail.ifEmpty{ "https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp" }
 
-            SubcomposeAsyncImage(
-                model = getHttpsImageUrl(imageUrl),
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(getHttpsImageUrl(imageUrl))
+                    .crossfade(true)
+                    .build(),
                 contentDescription = "book image",
                 modifier = Modifier
                     .width(100.dp)
                     .heightIn(100.dp)
-                    .padding(4.dp),
-                loading = {CircularProgressIndicator()}
+                    .padding(4.dp)
             )
 
             Column(
