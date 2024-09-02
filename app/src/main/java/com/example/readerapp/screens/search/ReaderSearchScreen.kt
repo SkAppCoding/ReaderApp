@@ -170,7 +170,7 @@ fun SearchResultItem(
             modifier = Modifier.padding(start = 5.dp)
         ) {
 
-            val imageUrl: String = book.volumeInfo.imageLinks.smallThumbnail.ifEmpty{ "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=80&q=80" }
+            val imageUrl: String = book.volumeInfo.imageLinks.smallThumbnail.ifEmpty{ "https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp" }
 
             AsyncImage(
                 model = imageUrl,
