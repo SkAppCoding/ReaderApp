@@ -9,7 +9,7 @@ import com.example.readerapp.screens.SplashScreen
 import com.example.readerapp.screens.details.BookDetailsScreen
 import com.example.readerapp.screens.home.HomeScreen
 import com.example.readerapp.screens.login.LoginScreen
-import com.example.readerapp.screens.search.BookSearchViewModel
+import com.example.readerapp.screens.search.BooksSearchViewModel
 import com.example.readerapp.screens.search.SearchScreen
 import com.example.readerapp.screens.stats.StatsScreen
 import com.example.readerapp.screens.update.UpdateScreen
@@ -37,8 +37,8 @@ fun ReaderNavigation() {
         }
 
         composable(route = ReaderScreens.SearchScreen.name) {
-            val viewModel = hiltViewModel<BookSearchViewModel>()
-            SearchScreen(navController = navController, viewModel)
+            val searchViewModel = hiltViewModel<BooksSearchViewModel>()
+            SearchScreen(navController = navController, viewModel = searchViewModel)
         }
 
         composable(route = ReaderScreens.DetailScreen.name) {

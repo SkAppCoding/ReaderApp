@@ -16,4 +16,7 @@
     <string name="AuthorName">Author: ...</string>
     <string name="ReadingListTitle">Leseverlauf</string>
     <string name="SearchBooks">Buchsuche</string>
+    <string name="Search">Suchen</string>
+    <string name="Author">Autor</string>
+    <string name="Date">Datum</string>
 </resources>
