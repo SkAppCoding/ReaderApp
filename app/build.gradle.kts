@@ -55,6 +55,8 @@ android {
 
 dependencies {
 
+    implementation("com.google.devtools.ksp:symbol-processing-api:1.9.0-1.0.13")
+
     // Firebase
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
@@ -82,8 +84,8 @@ dependencies {
 
     //Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.52")
-    ksp("com.google.dagger:hilt-android-compiler:2.52")
-    ksp("androidx.hilt:hilt-compiler:1.2.0")
+    kapt("com.google.dagger:hilt-android-compiler:2.52")
+    kapt("androidx.hilt:hilt-compiler:1.2.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     //material icons - use with caution!

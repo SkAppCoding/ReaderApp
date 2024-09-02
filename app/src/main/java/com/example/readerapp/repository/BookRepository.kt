@@ -1,8 +1,6 @@
 package com.example.readerapp.repository
 
-import android.provider.ContactsContract.Data
 import com.example.readerapp.data.DataOrException
-import com.example.readerapp.model.Book
 import com.example.readerapp.model.Item
 import com.example.readerapp.network.BooksApi
 import javax.inject.Inject

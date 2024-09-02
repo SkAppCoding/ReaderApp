@@ -62,9 +62,9 @@ fun HomeContent(navController: NavController) {
 
     )
 
-    val email = FirebaseAuth.getInstance().currentUser?.email
-    val currentUserName = if (!email.isNullOrEmpty())
-        FirebaseAuth.getInstance().currentUser?.email?.split("@")?.get(0) else "N/A"
+//    val email = FirebaseAuth.getInstance().currentUser?.email
+//    val currentUserName = if (!email.isNullOrEmpty())
+//        FirebaseAuth.getInstance().currentUser?.email?.split("@")?.get(0) else "N/A"
 
     Column(
         modifier = Modifier

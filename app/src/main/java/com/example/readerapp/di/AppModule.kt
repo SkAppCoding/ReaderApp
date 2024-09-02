@@ -14,9 +14,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+
+
     @Singleton
     @Provides
-    fun provideBookApi () : BooksApi{
+    fun provideBookApi(): BooksApi {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
