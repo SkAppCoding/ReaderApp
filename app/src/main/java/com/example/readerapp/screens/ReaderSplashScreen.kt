@@ -46,7 +46,7 @@ fun SplashScreen(navController: NavHostController) {
                     OvershootInterpolator(4f).getInterpolation(it)
                 })
         )
-        delay(1000L)
+        delay(100L)
 
         //check if user is already logged in
         if(FirebaseAuth.getInstance().currentUser?.email.isNullOrEmpty()){

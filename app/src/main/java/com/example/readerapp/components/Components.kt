@@ -36,11 +36,6 @@ fun ReaderLogo(modifier: Modifier = Modifier, color: Color) {
 }
 
 @Composable
-fun TopSpacer() {
-    Spacer(modifier = Modifier.height(55.dp))
-}
-
-@Composable
 fun EmailInput(
     modifier: Modifier = Modifier,
     emailState: MutableState<String>,

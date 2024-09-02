@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ReaderApp</string>
 
-    <string name="AppName">Reader App</string>
+    <string name="AppName" translatable="false">Reader App</string>
     <string name="Email">Email</string>
     <string name="Password">Password</string>
     <string name="CreateAccount">Create Account</string>

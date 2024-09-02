@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ReaderApp</string>
+    <string name="Email">Email</string>
+    <string name="Password">Passwort</string>
+    <string name="CreateAccount">Account erstellen</string>
+    <string name="Login">Login</string>
+    <string name="SignUp">Registrieren</string>
+    <string name="NewUser">Neuer Nutzer?</string>
+    <string name="AlreadyUser">Bestehender Nutzer?</string>
+    <string name="CreateAccountHelp">Bitte geben Sie eine gültige E-Mail-Adresse und ein Passwort mit mindestens 6 Zeichen ein</string>
+    <string name="AccountAlreadyExistsLogin">Das Konto ist bereits vorhanden. Sie werden angemeldet!</string>
+</resources>
