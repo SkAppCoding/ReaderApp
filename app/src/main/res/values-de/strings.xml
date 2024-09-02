@@ -10,4 +10,10 @@
     <string name="AlreadyUser">Bestehender Nutzer?</string>
     <string name="CreateAccountHelp">Bitte geben Sie eine gültige E-Mail-Adresse und ein Passwort mit mindestens 6 Zeichen ein</string>
     <string name="AccountAlreadyExistsLogin">Das Konto ist bereits vorhanden. Sie werden angemeldet!</string>
+    <string name="CurrentReadingsTitle">Deine aktiven Bücher</string>
+    <string name="Name">Name</string>
+    <string name="BookTitle">Buchtitel</string>
+    <string name="AuthorName">Author: ...</string>
+    <string name="ReadingListTitle">Leseverlauf</string>
+    <string name="SearchBooks">Buchsuche</string>
 </resources>

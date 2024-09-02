@@ -11,8 +11,13 @@
     <string name="AlreadyUser">Already signed up?</string>
     <string name="CreateAccountHelp">Please enter a valid email and password that is at least 6 characters</string>
     <string name="AccountAlreadyExistsLogin">Account already exists. You will be logged in!</string>
-    <string name="CurrentReadingsTitle">Your reading\nactivity right now</string>
+    <string name="CurrentReadingsTitle">Your reading activity right now</string>
     <string name="Name">Name</string>
     <string name="BookTitle">Book title</string>
     <string name="AuthorName">Authors: All...</string>
+    <string name="ReadingListTitle">Reading List</string>
+    <string name="SearchBooks">Search books</string>
+    <string name="Search">Search</string>
+    <string name="Author">Author</string>
+    <string name="Date">Date</string>
 </resources>

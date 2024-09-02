@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Person
@@ -39,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -48,6 +51,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.readerapp.R
@@ -174,7 +178,11 @@ fun TitleSection(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReaderAppBar(
-    title: String, showProfile: Boolean = true, navController: NavHostController
+    title: String,
+    icon: ImageVector? = null,
+    showProfile: Boolean = true,
+    navController: NavController,
+    onBackArrowClicked: () -> Unit = {}
 ) {
     TopAppBar(
         title = {
@@ -188,30 +196,56 @@ fun ReaderAppBar(
                             .clip(shape = RoundedCornerShape(12.dp))
                             .scale(0.9f)
                     )
-                    Text(
-                        text = title,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.7f),
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.padding(start = 15.dp)
-                    )
-
-                    Spacer(Modifier.weight(1f))
                 }
+
+                if(icon != null){
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = "Arrow Back",
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.clickable { onBackArrowClicked.invoke() }
+                    )
+                }
+
+                Text(
+                    text = title,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.7f),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(start = 15.dp)
+                )
+
+                Spacer(Modifier.weight(1f))
             }
         },
         actions = {
-            IconButton(onClick = {
-                FirebaseAuth.getInstance().signOut().run {
-                    navController.navigate(ReaderScreens.LoginScreen.name)
+
+            if(showProfile) {
+                IconButton(onClick = {
+                    FirebaseAuth.getInstance().signOut().run {
+                        navController.navigate(ReaderScreens.LoginScreen.name)
+                    }
+                }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Default.Logout,
+                        contentDescription = "Logout",
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
                 }
-            }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Default.Logout,
-                    contentDescription = "Logout",
-                    tint = MaterialTheme.colorScheme.onPrimary
-                )
+
+                IconButton(onClick = {
+                    navController.navigate(ReaderScreens.ReaderStatsScreen.name)
+                }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.AccountCircle,
+                        contentDescription = "Profile",
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.size(45.dp)
+                    )
+                }
             }
+
         },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary)
     )
@@ -263,7 +297,8 @@ fun ListCard(
         id = "1",
         title = "Hello Again",
         authors = "All of us",
-        notes = "This is a note"
+        notes = "This is a note",
+        published_date = "2023.09.08"
     ),
     onPressDetails: (String) -> Unit = {}
 ) {
@@ -297,6 +332,7 @@ fun ListCard(
                         .height(140.dp)
                         .width(100.dp)
                         .padding(4.dp)
+                        .padding(start = 10.dp)
                 )
                 Spacer(modifier = Modifier.width(50.dp))
 
@@ -316,16 +352,16 @@ fun ListCard(
             }
 
             Text(
-                text = stringResource(R.string.BookTitle),
-                modifier = Modifier.padding(4.dp),
+                text = book.title.toString(),
+                modifier = Modifier.padding(4.dp).padding(start = 10.dp),
                 fontWeight = FontWeight.Bold,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
 
             Text(
-                text = stringResource(R.string.AuthorName),
-                modifier = Modifier.padding(4.dp), style = MaterialTheme.typography.bodySmall
+                text = book.authors.toString(),
+                modifier = Modifier.padding(4.dp).padding(start = 10.dp), style = MaterialTheme.typography.bodySmall
             )
 
             Spacer(modifier = Modifier.weight(1f))

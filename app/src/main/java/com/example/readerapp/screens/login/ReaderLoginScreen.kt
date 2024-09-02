@@ -37,6 +37,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.readerapp.R
 import com.example.readerapp.components.EmailInput
@@ -45,7 +46,7 @@ import com.example.readerapp.components.ReaderLogo
 import com.example.readerapp.navigation.ReaderScreens
 
 @Composable
-fun LoginScreen(navController: NavHostController,
+fun LoginScreen(navController: NavController,
                 viewModel: LoginScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
 
     val showLoginForm = rememberSaveable { mutableStateOf(true) }
