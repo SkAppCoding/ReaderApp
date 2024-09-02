@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "705929596304",
-    "project_id": "readerapp-3cd90",
-    "storage_bucket": "readerapp-3cd90.appspot.com"
+    "project_number": "787868254092",
+    "project_id": "jetareader-604c0",
+    "storage_bucket": "jetareader-604c0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:705929596304:android:de23a640ff1c45946bf715",
+        "mobilesdk_app_id": "1:787868254092:android:b18b8364f3c1701c0e20a9",
         "android_client_info": {
           "package_name": "com.example.readerapp"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD9QfuLb_y5raJHsTzesV3ks5dksKtvsx0"
+          "current_key": "AIzaSyDfFBcpEe8e52rg7NzlV7_Wafg-CGcxwis"
         }
       ],
       "services": {
