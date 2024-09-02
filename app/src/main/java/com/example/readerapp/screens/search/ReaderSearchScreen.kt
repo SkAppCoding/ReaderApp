@@ -38,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -48,7 +49,7 @@ import com.example.readerapp.model.Item
 import com.example.readerapp.model.MBook
 
 @Composable
-fun SearchScreen(navController: NavController, viewModel: BookSearchViewModel = hiltViewModel()) {
+fun SearchScreen(navController: NavController, viewModel: BookSearchViewModel) {
     Scaffold(topBar = {
         ReaderAppBar(
             title = stringResource(R.string.SearchBooks),
@@ -121,8 +122,9 @@ fun SearchForm(
 }
 
 @Composable
-fun SearchResults(navController: NavController, viewModel: BookSearchViewModel = hiltViewModel()) {
+fun SearchResults(navController: NavController) {
 
+    val viewModel: BookSearchViewModel = hiltViewModel()
     val listOfBooks = viewModel.listOfBooks.value.data
 
     if (viewModel.listOfBooks.value.loading == true) {
@@ -168,14 +170,10 @@ fun SearchResultItem(
             modifier = Modifier.padding(start = 5.dp)
         ) {
 
-            val imageUrl: String = if(book.volumeInfo.imageLinks.smallThumbnail.isEmpty())
-                "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=80&q=80"
-            else {
-                book.volumeInfo.imageLinks.smallThumbnail
-            }
+            val imageUrl: String = book.volumeInfo.imageLinks.smallThumbnail.ifEmpty{ "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=80&q=80" }
 
             AsyncImage(
-                model = String,
+                model = imageUrl,
                 contentDescription = "book image",
                 modifier = Modifier
                     .width(100.dp)
@@ -186,7 +184,7 @@ fun SearchResultItem(
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.Start,
-                modifier = Modifier.padding(start = 5.dp)
+                modifier = Modifier.padding(5.dp)
             ) {
 
                 Text(
@@ -196,17 +194,19 @@ fun SearchResultItem(
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.titleLarge
                 )
+
                 Text(
                     text = "${stringResource(R.string.Author)}: ${book.volumeInfo.authors}",
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(4.dp),
+                    modifier = Modifier.padding(start = 4.dp, end = 4.dp),
                     fontStyle = FontStyle.Italic,
                     style = MaterialTheme.typography.titleSmall
                 )
+
                 Text(
                     text = "${stringResource(R.string.Date)}: ${book.volumeInfo.publishedDate}",
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(4.dp),
+                    modifier = Modifier.padding(start = 4.dp, end = 4.dp),
                     fontStyle = FontStyle.Italic,
                     style = MaterialTheme.typography.titleSmall
                 )
@@ -214,7 +214,7 @@ fun SearchResultItem(
                 Text(
                     text = book.volumeInfo.categories.toString(),
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(4.dp),
+                    modifier = Modifier.padding(start = 4.dp, end = 4.dp),
                     fontStyle = FontStyle.Italic,
                     style = MaterialTheme.typography.titleSmall
                 )
