@@ -9,15 +9,28 @@ import com.example.readerapp.data.DataOrException
 import com.example.readerapp.model.Item
 import com.example.readerapp.repository.BookRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
 @HiltViewModel
 class BooksSearchViewModel @Inject constructor(private val repository: BookRepository) : ViewModel() {
 
-    val listOfBooks: MutableState<DataOrException<List<Item>, Boolean, Exception>> =
-        mutableStateOf(DataOrException(null, true, Exception("")))
+    private var _listOfBooks = MutableStateFlow(
+        DataOrException<List<Item>, Boolean, Exception>(listOf(), true, Exception(""))
+    )
+    var listOfBooks: StateFlow<DataOrException<List<Item>, Boolean, Exception>> = _listOfBooks.asStateFlow()
+
+    private fun updateBooks(query: String) {
+        viewModelScope.launch {
+            _listOfBooks.value = repository.getBooks(query)
+        }
+    }
 
     init {
         loadBooks()
@@ -32,11 +45,17 @@ class BooksSearchViewModel @Inject constructor(private val repository: BookRepos
             if (query.isEmpty()) {
                 return@launch
             }
-
-            listOfBooks.value.loading = true
-            listOfBooks.value = repository.getBooks(query)
-            Log.d("BOOKS", "searchBooks: ${listOfBooks.value.data}")
-            if (listOfBooks.value.data.toString().isNotEmpty()) listOfBooks.value.loading = false
+            _listOfBooks.value = _listOfBooks.value.copy(loading = true)
+            try {
+                val books = withContext(Dispatchers.IO) { repository.getBooks(query) }
+                _listOfBooks.value = DataOrException(data = books.data, loading = false, ex = null)
+            } catch (e: retrofit2.HttpException) { // Catch Retrofit's HttpException
+                // Consider keeping previous data: _listOfBooks.value = _listOfBooks.value.copy(loading = false, ex = e)
+                _listOfBooks.value = DataOrException(data = listOf(), loading = false, ex = e)
+            } catch (e: Exception) {
+                // Consider keeping previous data: _listOfBooks.value = _listOfBooks.value.copy(loading = false, ex = e)
+                _listOfBooks.value = DataOrException(data = listOf(), loading = false, ex = e)
+            }
         }
     }
 }

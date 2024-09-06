@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -25,6 +26,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -67,13 +70,13 @@ fun SearchScreen(navController: NavController, viewModel: BooksSearchViewModel =
                 .fillMaxSize()
                 .padding(it)
         ) {
-            SearchContent(navController, viewModel)
+            SearchContent(navController)
         }
     }
 }
 
 @Composable
-fun SearchContent(navController: NavController, viewModel: BooksSearchViewModel) {
+fun SearchContent(navController: NavController, viewModel: BooksSearchViewModel = hiltViewModel()) {
 
     Column {
         SearchForm(
@@ -124,9 +127,9 @@ fun SearchForm(
 @Composable
 fun SearchResults(navController: NavController, viewModel: BooksSearchViewModel = hiltViewModel()) {
 
-    val listOfBooks = viewModel.listOfBooks
+    val listOfBooks by viewModel.listOfBooks.collectAsState()
 
-    if (listOfBooks.value.loading == true) {
+    if (listOfBooks.loading == true) {
         Row(
             modifier = Modifier.padding(end = 2.dp). fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
@@ -140,7 +143,7 @@ fun SearchResults(navController: NavController, viewModel: BooksSearchViewModel 
         LazyColumn(modifier = Modifier
             .padding(start = 20.dp, end = 20.dp)
             .fillMaxSize()) {
-            listOfBooks.value.data?.forEach { book ->
+            listOfBooks.data?.forEach { book ->
                 item {
                     SearchResultItem(book, navController = navController)
                 }

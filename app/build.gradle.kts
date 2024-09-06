@@ -56,31 +56,31 @@ android {
 
 dependencies {
 
-    implementation("com.google.devtools.ksp:symbol-processing-api:1.9.0-1.0.13")
+    implementation("com.google.devtools.ksp:symbol-processing-api:2.0.20-1.0.24")
 
     // Firebase
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
 
     //viewmodel
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
 
-    //Coroutines
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.coroutines.play.services)
+    // Coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1")
 
     // Coroutine Lifecycle Scopes
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx.v240)
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.7.0")
 
     //ROOM DB
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.firebase.crashlytics.buildtools)
     annotationProcessor(libs.androidx.room.room.compiler)
 
-    // To use Kotlin annotation processing tool (kapt)
-    implementation(libs.androidx.room.ktx)
 
 
     //Dagger - Hilt

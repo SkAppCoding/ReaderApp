@@ -7,33 +7,31 @@ import javax.inject.Inject
 
 class BookRepository @Inject constructor(private val api: BooksApi) {
 
-    private val dataOrException = DataOrException<List<Item>, Boolean, Exception>()
-    private val bookInfoDataOrException = DataOrException<Item, Boolean, Exception>()
-
     suspend fun getBooks(searchQuery: String): DataOrException<List<Item>, Boolean, Exception> {
+        val dataOrException = DataOrException<List<Item>, Boolean, Exception>()
         try {
             dataOrException.loading = true
-            dataOrException.data = api.getAllBooks(searchQuery).items
-            if (dataOrException.data!!.isNotEmpty()) dataOrException.loading = false
+            val book = api.getAllBooks(searchQuery) // Get the Book object
+            dataOrException.data = book?.items ?: emptyList() // Handle null book or items safely
+            dataOrException.loading = false
         } catch (ex: Exception) {
             dataOrException.ex = ex
+            dataOrException.loading = false
         }
-
         return dataOrException
     }
 
-    suspend fun getBookInfo(bookId: String) : DataOrException<Item, Boolean, Exception>{
-        val response = try {
+    suspend fun getBookInfo(bookId: String): DataOrException<Item, Boolean, Exception> {
+        val bookInfoDataOrException = DataOrException<Item, Boolean, Exception>() // Create a new instance for each call
+        try {
             bookInfoDataOrException.loading = true
-            api.getBookInfo(bookId)
-
-            if (bookInfoDataOrException.data.toString().isNotEmpty()) bookInfoDataOrException.loading = false
-            else {}
-
+            val bookInfo = api.getBookInfo(bookId) // Get the response
+            bookInfoDataOrException.data = bookInfo // Update the data
+            bookInfoDataOrException.loading = false
         } catch (ex: Exception) {
-            dataOrException.ex = ex
+            bookInfoDataOrException.ex = ex
+            bookInfoDataOrException.loading = false // Set loading to false in case of an exception
         }
         return bookInfoDataOrException
     }
-
 }
