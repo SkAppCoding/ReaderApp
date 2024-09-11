@@ -2,7 +2,9 @@ package com.example.readerapp.screens.search
 
 import android.util.Log
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readerapp.data.DataOrException
@@ -21,16 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BooksSearchViewModel @Inject constructor(private val repository: BookRepository) : ViewModel() {
 
-    private var _listOfBooks = MutableStateFlow(
-        DataOrException<List<Item>, Boolean, Exception>(listOf(), true, Exception(""))
-    )
-    var listOfBooks: StateFlow<DataOrException<List<Item>, Boolean, Exception>> = _listOfBooks.asStateFlow()
-
-    private fun updateBooks(query: String) {
-        viewModelScope.launch {
-            _listOfBooks.value = repository.getBooks(query)
-        }
-    }
+    var listOfBooks by mutableStateOf(DataOrException<List<Item>, Boolean, Exception>(listOf(), true, Exception("")))
 
     init {
         loadBooks()
@@ -45,16 +38,15 @@ class BooksSearchViewModel @Inject constructor(private val repository: BookRepos
             if (query.isEmpty()) {
                 return@launch
             }
-            _listOfBooks.value = _listOfBooks.value.copy(loading = true)
+            listOfBooks = DataOrException(loading = true)
             try {
-                val books = withContext(Dispatchers.IO) { repository.getBooks(query) }
-                _listOfBooks.value = DataOrException(data = books.data, loading = false, ex = null)
-            } catch (e: retrofit2.HttpException) { // Catch Retrofit's HttpException
-                // Consider keeping previous data: _listOfBooks.value = _listOfBooks.value.copy(loading = false, ex = e)
-                _listOfBooks.value = DataOrException(data = listOf(), loading = false, ex = e)
+                val books = withContext(this.coroutineContext) { repository.getBooks(query) }
+                Log.d("BooksSearchViewModel", "Books: ${books.data}")
+                listOfBooks = DataOrException(data = books.data ?: listOf(), loading = false, ex = null)
+            } catch (e: retrofit2.HttpException) {
+                listOfBooks = DataOrException(data = listOf(), loading = false, ex = e)
             } catch (e: Exception) {
-                // Consider keeping previous data: _listOfBooks.value = _listOfBooks.value.copy(loading = false, ex = e)
-                _listOfBooks.value = DataOrException(data = listOf(), loading = false, ex = e)
+                listOfBooks = DataOrException(data = listOf(), loading = false, ex = e)
             }
         }
     }

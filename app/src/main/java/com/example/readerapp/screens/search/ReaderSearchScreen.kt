@@ -49,6 +49,7 @@ import com.example.readerapp.R
 import com.example.readerapp.components.InputField
 import com.example.readerapp.components.ReaderAppBar
 import com.example.readerapp.model.Item
+import com.example.readerapp.navigation.ReaderScreens
 import com.example.readerapp.utils.getHttpsImageUrl
 
 @Composable
@@ -111,7 +112,7 @@ fun SearchForm(
 
         InputField(
             valueState = searchQueryState,
-            modifier = Modifier.padding(start = 10.dp, end = 10.dp),
+            modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),
             labelId = "Search",
             enabled = true,
             onAction = KeyboardActions {
@@ -127,11 +128,13 @@ fun SearchForm(
 @Composable
 fun SearchResults(navController: NavController, viewModel: BooksSearchViewModel = hiltViewModel()) {
 
-    val listOfBooks by viewModel.listOfBooks.collectAsState()
+    val listOfBooks = viewModel.listOfBooks
 
     if (listOfBooks.loading == true) {
         Row(
-            modifier = Modifier.padding(end = 2.dp). fillMaxWidth(),
+            modifier = Modifier
+                .padding(end = 2.dp)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -140,12 +143,16 @@ fun SearchResults(navController: NavController, viewModel: BooksSearchViewModel 
 
     } else {
 
-        LazyColumn(modifier = Modifier
-            .padding(start = 20.dp, end = 20.dp)
-            .fillMaxSize()) {
+        LazyColumn(
+            modifier = Modifier
+                .padding(start = 20.dp, end = 20.dp)
+                .fillMaxSize()
+        ) {
             listOfBooks.data?.forEach { book ->
                 item {
-                    SearchResultItem(book, navController = navController)
+                    SearchResultItem(book){
+                        navController.navigate(ReaderScreens.DetailScreen.name + "/${book.id}")
+                    }
                 }
             }
         }
@@ -156,7 +163,6 @@ fun SearchResults(navController: NavController, viewModel: BooksSearchViewModel 
 fun SearchResultItem(
     book: Item,
     onPress: () -> Unit = {},
-    navController: NavController = NavController(context = LocalContext.current)
 ) {
     Card(
         modifier = Modifier
@@ -172,7 +178,13 @@ fun SearchResultItem(
             modifier = Modifier.padding(start = 5.dp)
         ) {
 
-            val imageUrl: String = book.volumeInfo.imageLinks.smallThumbnail.ifEmpty{ "https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp" }
+            val imageUrl: String =
+                if (book.volumeInfo.imageLinks?.smallThumbnail?.isNotEmpty() == true)
+                    book.volumeInfo.imageLinks.smallThumbnail
+                else
+                    "https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp"
+
+            Log.d("SearchResultItem", "imageUrl: $imageUrl")
 
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
@@ -193,32 +205,32 @@ fun SearchResultItem(
             ) {
 
                 Text(
-                    text = book.volumeInfo.title,
-                    overflow = TextOverflow.Ellipsis,
+                    text = if (book.volumeInfo.title?.isNotEmpty() == true) book.volumeInfo.title else "",
+                    overflow = TextOverflow.Clip,
                     modifier = Modifier.padding(4.dp),
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.titleLarge
                 )
 
                 Text(
-                    text = "${stringResource(R.string.Author)}: ${book.volumeInfo.authors}",
-                    overflow = TextOverflow.Ellipsis,
+                    text = if (book.volumeInfo.authors?.isNotEmpty() == true) "${stringResource(R.string.Author)}: ${book.volumeInfo.authors}" else "",
+                    overflow = TextOverflow.Clip,
                     modifier = Modifier.padding(start = 4.dp, end = 4.dp),
                     fontStyle = FontStyle.Italic,
                     style = MaterialTheme.typography.titleSmall
                 )
 
                 Text(
-                    text = "${stringResource(R.string.Date)}: ${book.volumeInfo.publishedDate}",
-                    overflow = TextOverflow.Ellipsis,
+                    text = if (book.volumeInfo.publishedDate?.isNotEmpty() == true) "${stringResource(R.string.Date)}: ${book.volumeInfo.publishedDate}" else "",
+                    overflow = TextOverflow.Clip,
                     modifier = Modifier.padding(start = 4.dp, end = 4.dp),
                     fontStyle = FontStyle.Italic,
                     style = MaterialTheme.typography.titleSmall
                 )
 
                 Text(
-                    text = book.volumeInfo.categories.toString(),
-                    overflow = TextOverflow.Ellipsis,
+                    text = if (book.volumeInfo.categories?.isNotEmpty() == true) book.volumeInfo.categories.toString() else "",
+                    overflow = TextOverflow.Clip,
                     modifier = Modifier.padding(start = 4.dp, end = 4.dp),
                     fontStyle = FontStyle.Italic,
                     style = MaterialTheme.typography.titleSmall

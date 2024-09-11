@@ -70,7 +70,7 @@ fun HomeContent(navController: NavController) {
         modifier = Modifier
             .padding(2.dp)
             .padding(top = 20.dp),
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.Top,
     ) {
         Row(
             modifier = Modifier

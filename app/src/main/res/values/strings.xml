@@ -20,4 +20,5 @@
     <string name="Search">Search</string>
     <string name="Author">Author</string>
     <string name="Date">Date</string>
+    <string name="BookDetails">Book Details</string>
 </resources>
