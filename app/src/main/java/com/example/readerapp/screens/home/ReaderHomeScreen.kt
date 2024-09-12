@@ -19,8 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.example.readerapp.R
 import com.example.readerapp.components.FABContent
 import com.example.readerapp.components.ListCard
@@ -31,7 +31,7 @@ import com.example.readerapp.navigation.ReaderScreens
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel = hiltViewModel()) {
     Scaffold(topBar = {
         ReaderAppBar(title = "Reader App", navController = navController)
     }, floatingActionButton = {
@@ -50,17 +50,26 @@ fun HomeScreen(navController: NavController) {
 }
 
 @Composable
-fun HomeContent(navController: NavController) {
+fun HomeContent(navController: NavController, viewModel: HomeScreenViewModel = hiltViewModel()) {
 
-    val listOfBooks = listOf(
-        MBook(id = "Book 1", title = "Hello Again", authors = "Stefan of us"),
-        MBook(id = "Book 2", title = "Hello", authors = "All of "),
-        MBook(id = "Book 3", title = "Again", authors = "All  us"),
-        MBook(id = "Book 4", title = "Hello Again", authors = "All of us"),
-        MBook(id = "Book 5", title = "Hello Again", authors = "STefan of us"),
-        MBook(id = "Book 6", title = "Hello Again", authors = "All of us"),
+//    val listOfBooks = listOf(
+//        MBook(id = "Book 1", title = "Hello Again", authors = "Stefan of us"),
+//        MBook(id = "Book 2", title = "Hello", authors = "All of "),
+//        MBook(id = "Book 3", title = "Again", authors = "All  us"),
+//        MBook(id = "Book 4", title = "Hello Again", authors = "All of us"),
+//        MBook(id = "Book 5", title = "Hello Again", authors = "STefan of us"),
+//        MBook(id = "Book 6", title = "Hello Again", authors = "All of us"),
+//
+//    )
 
-    )
+    var listOfBooks = emptyList<MBook>()
+    val currentUser = FirebaseAuth.getInstance().currentUser
+
+    if (!viewModel.listOfBooks.data.isNullOrEmpty()) {
+        listOfBooks = viewModel.listOfBooks.data!!.toList().filter { mBook ->
+            mBook.userId == currentUser?.uid.toString()
+        }
+    }
 
 //    val email = FirebaseAuth.getInstance().currentUser?.email
 //    val currentUserName = if (!email.isNullOrEmpty())

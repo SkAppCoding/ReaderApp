@@ -54,9 +54,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.readerapp.R
 import com.example.readerapp.model.MBook
 import com.example.readerapp.navigation.ReaderScreens
+import com.example.readerapp.utils.getHttpsImageUrl
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
@@ -298,7 +300,6 @@ fun ListCard(
         title = "Hello Again",
         authors = "All of us",
         notes = "This is a note",
-        published_date = "2023.09.08"
     ),
     onPressDetails: (String) -> Unit = {}
 ) {
@@ -315,7 +316,7 @@ fun ListCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier
             .padding(16.dp)
-            .height(242.dp)
+            .height(280.dp)
             .width(202.dp)
             .clickable { onPressDetails.invoke(book.title.toString()) }
     ) {
@@ -325,8 +326,18 @@ fun ListCard(
             horizontalAlignment = Alignment.Start
         ) {
             Row(horizontalArrangement = Arrangement.Center) {
+
+                val imageUrl: String =
+                    if (book.photoUrl?.isNotEmpty() == true)
+                        book.photoUrl.toString()
+                    else
+                        "https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp"
+
                 AsyncImage(
-                    model = "https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp",
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(getHttpsImageUrl(imageUrl))
+                        .crossfade(true)
+                        .build(),
                     contentDescription = "book image",
                     modifier = Modifier
                         .height(140.dp)
