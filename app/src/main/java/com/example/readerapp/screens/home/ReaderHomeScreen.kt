@@ -95,7 +95,7 @@ fun HomeContent(navController: NavController, viewModel: HomeScreenViewModel = h
         }
         HorizontalDivider()
         ReadingRightNowArea(
-            books = listOf(),
+            listOfBooks = listOfBooks,
             navController = navController
         )
 
@@ -123,7 +123,7 @@ fun BoolListArea(
     navController: NavController
 ) {
     HorizontalScrollableComponent(listOfBooks) {
-        Log.d("TAG", "BoolListArea: $it")
+        navController.navigate(ReaderScreens.UpdateScreen.name + "/$it")
     }
 }
 
@@ -142,13 +142,17 @@ fun HorizontalScrollableComponent(
 
         for (book in listOfBooks) {
             ListCard(book){
-                onCardPressed(it)
+                onCardPressed(book.googleBookId.toString())
             }
         }
     }
 }
 
 @Composable
-fun ReadingRightNowArea(books: List<MBook>, navController: NavController) {
-    ListCard()
+fun ReadingRightNowArea(
+    listOfBooks: List<MBook>,
+    navController: NavController) {
+    HorizontalScrollableComponent(listOfBooks) {
+        Log.d("TAG", "BoolListArea: $it")
+    }
 }

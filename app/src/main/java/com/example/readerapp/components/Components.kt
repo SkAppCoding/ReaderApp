@@ -295,12 +295,7 @@ fun BookRating(score: Double = 4.5) {
 
 @Composable
 fun ListCard(
-    book: MBook = MBook(
-        id = "1",
-        title = "Hello Again",
-        authors = "All of us",
-        notes = "This is a note",
-    ),
+    book: MBook = MBook(),
     onPressDetails: (String) -> Unit = {}
 ) {
 

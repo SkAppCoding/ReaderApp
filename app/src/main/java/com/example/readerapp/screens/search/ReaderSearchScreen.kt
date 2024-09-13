@@ -61,7 +61,8 @@ fun SearchScreen(navController: NavController, viewModel: BooksSearchViewModel =
             navController = navController,
             showProfile = false,
             onBackArrowClicked = {
-                navController.popBackStack()
+                //navController.popBackStack()
+                navController.navigate(ReaderScreens.ReaderHomeScreen.name)
             }
         )
     })
